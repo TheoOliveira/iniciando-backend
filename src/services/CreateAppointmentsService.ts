@@ -6,13 +6,13 @@ import User from '../models/User';
 import AppointmentsRepos from '../repositories/AppointmentsRepos';
 
 interface Request {
-    provider: User;
+    provider_id: string;
     date: Date;
 }
 class CreateAppointmentService {
 
 
-    public async execute({ date, provider }: Request): Promise<Appointment> {
+    public async execute({ date, provider_id }: Request): Promise<Appointment> {
         const appointmentsRepos = getCustomRepository(AppointmentsRepos)
         const appointmentDate = startOfHour(date);
 
@@ -24,7 +24,7 @@ class CreateAppointmentService {
             throw Error('this appointment is already used');
         }
         const appointment = appointmentsRepos.create({
-            provider,
+            provider_id,
             date: appointmentDate,
         });
 
